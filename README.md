@@ -1,7 +1,7 @@
 # Templates.Js
 The **Templates.Js** is a little HTML widget to show text templates with blank spaces, that works such as a prefilled form.
 
-You can find a [live example](https://expandedventure.com/templatesjs/index.html) of **Templates.Js** here: [https://expandedventure.com/templatesjs/index.html](https://expandedventure.com/templatesjs/index.html)
+You can find a [live example](https://connectionsphere.com/developers/templatesjs) of **Templates.Js** here: [https://connectionsphere.com/developers/templatesjs](https://connectionsphere.com/developers/templatesjs)
 
 
 # Getting Started
@@ -35,8 +35,6 @@ All these files are included in this project. You can download them from this pa
 </script>
 ```
 
-You can find [this example](https://expandedventure.com/templatesjs/getting_started.html) of **Templates.Js** here: [https://expandedventure.com/templatesjs/getting_started.html](https://expandedventure.com/templatesjs/getting_started.html).
-
 ## Some comments
 
 Special tags like `<!firstname!Write the first name of your friend here!>` will be replaced by an content-editable span in the widget.
@@ -45,12 +43,11 @@ The special tag has two components:
 1. the identifier of the tag (*firstnae*); and
 2. a brief description for the user about what should he/she write in such blank space, that will be shown as a placeholder text.
 
-# Features in Version 1.0.1
+# Features
 Here are listed each one of the features provided by **Templates.Js**.
 
-You can find a live example at [https://expandedventure.com/templatesjs/index.html](https://expandedventure.com/templatesjs/index.html).
 
-## Working Spintax 
+## Working with Spintax 
 You can provide spintax templates. The widget will show one rotation randomly chosen.
 
 Example:
@@ -111,6 +108,15 @@ $(document).ready(function() {
 });
 ```
 
+## Allowing Custom Scripts
+You can witch the widget between 2 modes:
+
+1. **blank-fields mode**, where the user just have to fill the blank spaces of a tempalte; and
+
+2. **row code mode**, where the user can write freely in a text area.
+
+*(example is pending)*
+
 # Functions in Version 1.0.1
 Here are listed each one of the features provided by **Templates.Js**.
 
@@ -120,8 +126,35 @@ Returns the version of this **Templates.Js** library.
 ## templatesJs.isReady(ctx)
 Returns true if a template has been complated by filling up all its blank spaces.
 
+## templatesJs.isCodeOn(ctx)
+Returns true if the widget is enabled to edit code.
+
+## templatesJs.toggleCode(ctx)
+Set on/off the code raw-code edition feature.
+Enable/disable the select list of templates.
+
+## templatesJs.getVersionId(ctx)
+Returns ID of the chosen version to work with.
+If code button is ON (the users is working with the raw code), returns null.
+
+## templatesJs.setVersionId(ctx)
+Change the chosen version.
+The event on_version_change will be raised.
+If the users is working with the raw code, it toggles to the template mode.
+
+## templatesJs.getChosenVersionSpintax(ctx)
+If code button is OFF, returns the code of the chosen version with the values written by the user in the blank-spaces.
+If code button is ON, this function throws an exception.
+
 ## templatesJs.getSpintax(ctx)
 Returns the code of the template with the values written by the user in the blank-spaces.
+If code button is ON, this functions returns the text inside the textarea.
+If code button is OFF, this functions calls getChosenVersionSpintax and returns its value.
+
+## templatesJs.setSpintax(ctx, value)
+If code button is ON, this functions set the text inside the textarea.
+If code button is OFF, this functions throws an exception.
+The event on_raw_code_edition will be raised.
 
 ## templatesJs.getFieldNames
 Returns an array with the names of the fields in the template.
@@ -131,6 +164,25 @@ Returns the value written into a field.
 
 ## templatesJs.setFocus(ctx)
 Set cursor focus in the first blank-space of the template.
+
+# Events in Version 1.0.1
+Here are listed events that you can catch in **Templates.Js**.
+
+## on_field_edition
+
+*(example is pending)*
+
+## on_version_change
+
+*(example is pending)*
+
+## on_code_button_toggle
+
+*(example is pending)*
+
+## on_raw_code_edition
+
+*(example is pending)*
 
 # Deployment 
 The **Templates.Js** requires the [**Commons.JS 1.0.2**](https://github.com/leandrosardi/commonsjs/) and [**JQuery 3.5.1**](https://jquery.com/download/).
