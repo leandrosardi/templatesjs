@@ -115,6 +115,8 @@ You can witch the widget between 2 modes:
 
 2. **row code mode**, where the user can write freely in a text area.
 
+You have to use the `allow_code_edition` parameter to enable/disable such a custom scripts feature.
+
 *(example is pending)*
 
 # Functions in Version 1.0.1
