@@ -1,10 +1,36 @@
 var commonsJs = {
+
+	/*
+	 * Spintax regex pattern.
+	 *  
+	 */
+	SPINTAX_PATTERN: /\{[^"\r\n\}]*\}/,
+	SPINTAX_PATTERN_GLOBAL: /\{[^"\r\n\}]*\}/g,
+
 	/*
 	 * Returns the version of this commonsJs library.
 	 *  
 	 */
 	version: function() {
-		return '1.0.2';
+		return '1.0.4';
+	},
+
+	/*
+	 * Returns true if a value is not null and is not undefined.
+	 * 
+	 * Reference:
+	 * https://www.tutorialrepublic.com/faq/how-to-determine-if-variable-is-undefined-or-null-in-javascript.php
+	 *
+	 */
+	isDefined: function(value) {
+		var ret = true;
+		// Since null === undefined is false, the following statements will catch only null or undefined
+		if(typeof value === 'undefined') {
+			ret = false;
+		} else if(value === null){
+			ret = false;
+		}
+		return ret;
 	},
 
 	/*
@@ -53,6 +79,25 @@ var commonsJs = {
 	    return s.replace(/&34;|&39;|&amp;|&lt;|&gt;/g, commonsJs.unReplaceTag);
 	},
 
+
+	/*
+	 * Validate if string has a valid spintax formatting.
+	 * Nested spintax is not supported.
+	 * 
+	 */
+	isValidSpintax: function(spintax) {
+		ret = true;
+		count = 0;
+		for (var i = 0; i < spintax.length; i++) {
+  			if (spintax.charAt(i) == '{') { count += 1; }
+  			if (spintax.charAt(i) == '}') { count -= 1; }
+  			if (count<0) { ret = false; }
+  			if (count>1) { ret = false; }
+		}
+		if (count!=0) { ret = false; }
+		return ret;
+	},
+
 	/*
 	 * Converts spintax to a random rotation/sample.
 	 * It doesn't support nested spintax.
@@ -64,13 +109,75 @@ var commonsJs = {
 	 * 
 	 */
 	spin: function(spintax) {
-		var SPINTAX_PATTERN = /\{[^"\r\n\}]*\}/;
 		var match = '';
-		while (match = spintax.match(SPINTAX_PATTERN)) {
+		while (match = spintax.match(commonsJs.SPINTAX_PATTERN)) {
 			match = match[0];
 			var candidates = match.substring(1, match.length - 1).split("|");
 			spintax = spintax.replace(match, candidates[Math.floor(Math.random() * candidates.length)]);
 		}
 		return spintax;
 	},
+
+	/*
+	 * Returns the largest sample of a spintax.
+	 * 
+	 */
+	removeInvisibleChars: function(content) {
+		// replace not-visible chars
+		content = content.replace(/\r/g, "");
+		content = content.replace(/\n/g, "");
+		content = content.replace(/\t/g, "");
+		return content;
+	},
+
+	/*
+	 * Returns the largest sample of a spintax.
+	 * 
+	 */
+	spintaxLargestSample: function(spintax) {
+		var match = '';
+		// 
+		while (match = spintax.match(commonsJs.SPINTAX_PATTERN)) {
+			match = match[0];
+			var candidates = match.substring(1, match.length - 1).split("|");
+			var largest_candidate = candidates.reduce(
+				function (a, b) {
+					return a.length > b.length ? a : b;
+				}
+			);
+			spintax = spintax.replace(match, largest_candidate);
+		}
+		return spintax;
+	},
+
+	/*
+	 * Returns the length if the largestvariation of a spintax.
+	 * 
+	 */
+	spintaxMaxLenght: function(spintax) {
+		// get the length of the largest spintax
+		return commonsJs.spintaxLargestSample(spintax).length;
+	},
+
+	/*
+	 * Returns the number of possible variations of a spintax.
+	 * 
+	 */
+	spintaxVariationsCount: function(spintax) {
+		var ret = 1;
+		var matches = spintax.match(commonsJs.SPINTAX_PATTERN_GLOBAL);
+		var i = 0;
+		if ( matches == null ) {
+			ret = 1;
+		} else {
+			while (i<matches.length) {
+				match = matches[i];
+				var candidates = match.substring(1, match.length - 1).split("|");
+				ret = ret * candidates.length;
+				i++;
+			}
+		}
+		return ret;
+	},
+
 }; // var commonsJs = {
