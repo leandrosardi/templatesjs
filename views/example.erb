@@ -1,6 +1,6 @@
         <section class='row-fluid'>
             <img src="https://github.com/leandrosardi/mysaas/blob/main/public/core/images/logo/logo-16-01.png?raw=true" alt='ConnectionSphere' />
-            <p>Filters.js Library</p>
+            <p>Templates.js Library</p>
         </section>
 
         <br/>
@@ -8,236 +8,107 @@
 		<section class="container span12">	  
 			<section class="box">
 				<header>
-					<h5>
-						<i class="icon-th-list"></i>
-						Simple Filter
-					</h5>
+					<h3>
+						Example Template
+					</h3>
 				</header>
-				<div class="span5" id='job_title'></div>
-				<div class="span6">
-					<pre>
-var job_title = document.getElementById('job_title');	  
-filtersJs.draw(job_title, {
-	label: 'Job Positions',
-	allowed_positive_keywords: true,
-	allowed_negative_keywords: true,
-});			
-					</pre>
-				</div>
+				<section class='row-fluid'>
+						<div id='myTemplate' style='width:750px;'> </div>
+				</section>
+				<section class='row-fluid'>
+						<button id='setFocus'>Set Focus</button><br/>
+						<br/>
+						<button id='getSpintax'>Get Spintax</button><br/>
+						<br/>
+						<button id='getFieldNames'>Get Field Names</button><br/>
+						<br/>
+						<button id='getFieldValue'>Get Field Value</button><input type='text' id='fieldName' value='' placeholder='write the name of a field here' /><br/>
+						<br/>
+						<textarea id='result' cols=150 rows=15> </textarea>			
+				</section>
 			</section>
 		</section>
 
-		<section class="container span12">	  
-			<section class="box">
-				<header>
-					<h5>
-						<i class="icon-th-list"></i>
-						List of Allowed Values
-					</h5>
-				</header>
-				<div class="span5" id='location2'></div>
-				<div class="span6">
-					<pre>
-var location2 = document.getElementById('location2');
-filtersJs.draw(location2, {
-	label: 'Locations',
-	allowed_positive_keywords: true,
-	allowed_negative_keywords: false,
-	allowed_values: [
-		'Argentina',
-		'Pakistan',
-		'United States'
-	],
-});			
-					</pre>
-				</div>
-			</section>
-		</section>
-
-		<section class="container span12">	  
-			<section class="box">
-				<header>
-					<h5>
-						<i class="icon-th-list"></i>
-						Catch Events
-					</h5>
-				</header>
-				<div class="span5" id='industry'></div>
-				<div class="span6">
-					<pre>
-var industry = document.getElementById('industry');
-filtersJs.draw(industry, {
-	label: 'Industries',
-	allowed_positive_keywords: true,
-	allowed_negative_keywords: true,
-	on_add_value: function(value) {
-		alert("You added: " + value);
-	},
-	on_remove_value: function(value) {
-		alert("You removed: " + value);
-	},
-});	
-					</pre>
-				</div>
-			</section>
-		</section>
-
-		<section class="container span12">	  
-			<section class="box">
-				<header>
-					<h5>
-						<i class="icon-th-list"></i>
-						Load Existing Configuration
-					</h5>
-				</header>
-				<div class="span5" id='currentconfig'></div>
-				<div class="span6">
-					<pre>
-var currentconfig = document.getElementById('currentconfig');
-filtersJs.draw(currentconfig, {
-	label: 'Your Current Configuration',
-	allowed_positive_keywords: true,
-	allowed_negative_keywords: true,
-});	
-// adding values by code doesn't trigger events.
-filtersJs.addValue(currentconfig, 'Argentina', true);
-filtersJs.addValue(currentconfig, 'United Kingdom', false);
-					</pre>
-				</div>
-			</section>
-		</section>
-
-		<section class="container span12">	  
-			<section class="box">
-				<header>
-					<h5>
-						<i class="icon-th-list"></i>
-						Get Values <input id="clicktogetvalues" type="button" value="Click to Show Values" />
-					</h5>
-				</header>
-				<div class="span5" id='getvalues'></div>
-				<div class="span6">
-					<pre>
-var getvalues = document.getElementById('getvalues');
-filtersJs.draw(getvalues, {
-	label: 'Click the button below to get the list of values on this filter',
-	allowed_positive_keywords: true,
-	allowed_negative_keywords: true,
-});	
-$('#clicktogetvalues').click(function() {
-	alert('Positive Values:'+filtersJs.getPositiveValues(getvalues));
-	alert('Negative Values:'+filtersJs.getNegativeValues(getvalues));
-});
-					</pre>
-				</div>
-			</section>
-		</section>
-
-
-		<section class="container span12">	  
-			<section class="box">
-				<header>
-					<h5>
-						<i class="icon-th-list"></i>
-						Remove Values by Code <input id="clicktoremoveuk" type="button" value="Click to Remove United Kingdom" />
-					</h5>
-				</header>
-				<div class="span5" id='removeuk'></div>
-				<div class="span6">
-					<pre>
-var removeuk = document.getElementById('removeuk');
-filtersJs.draw(removeuk, {
-	label: 'Remove Values',
-	allowed_positive_keywords: true,
-	allowed_negative_keywords: true,
-});	
-// adding values by code doesn't trigger events.
-filtersJs.addValue(removeuk, 'Argentina', true);
-filtersJs.addValue(removeuk, 'United Kingdom', false);
-// removing values by code doesn't trigger events.
-$('#clicktoremoveuk').click(function() {
-	filtersJs.removeValue(removeuk, 'United Kingdom');
-});
-					</pre>
-				</div>
-			</section>
-		</section>
 
 	<script>
 		$(document).ready(function() {
-
-			// simple filter
-			var job_title = document.getElementById('job_title');	  
-			filtersJs.draw(job_title, {
-				label: 'Job Positions',
-				allowed_positive_keywords: true,
-				allowed_negative_keywords: true,
-			});
-
-			// list of allowed values
-			var location2 = document.getElementById('location2');
-			filtersJs.draw(location2, {
-				label: 'Locations',
-				allowed_positive_keywords: true,
-				allowed_negative_keywords: false,
-				allowed_values: [
-					'Argentina',
-					'Pakistan',
-					'United States'
-				],
-			});
-
-			// catch events
-			var industry = document.getElementById('industry');
-			filtersJs.draw(industry, {
-				label: 'Industries',
-				allowed_positive_keywords: true,
-				allowed_negative_keywords: true,
-				on_add_value: function(value) {
-					alert("You added: " + value);
-				},
-				on_remove_value: function(value) {
-					alert("You removed: " + value);
-				},
-			});	
-
-			// load existing configuration
-			var currentconfig = document.getElementById('currentconfig');
-			filtersJs.draw(currentconfig, {
-				label: 'Your Current Configuration',
-				allowed_positive_keywords: true,
-				allowed_negative_keywords: true,
-			});	
-			// adding values by code doesn't trigger events.
-			filtersJs.addValue(currentconfig, 'Argentina', true);
-			filtersJs.addValue(currentconfig, 'United Kingdom', false);
-
-			// get values by code
-			var getvalues = document.getElementById('getvalues');
-			filtersJs.draw(getvalues, {
-				label: 'Click the button below to get the list of values on this filter',
-				allowed_positive_keywords: true,
-				allowed_negative_keywords: true,
-			});	
-			$('#clicktogetvalues').click(function() {
-				alert('Positive Values:'+filtersJs.getPositiveValues(getvalues));
-				alert('Negative Values:'+filtersJs.getNegativeValues(getvalues));
-			});
-
-			// remove united kingdom by code
-			var removeuk = document.getElementById('removeuk');
-			filtersJs.draw(removeuk, {
-				label: 'Remove Values',
-				allowed_positive_keywords: true,
-				allowed_negative_keywords: true,
-			});	
-			// adding values by code doesn't trigger events.
-			filtersJs.addValue(removeuk, 'Argentina', true);
-			filtersJs.addValue(removeuk, 'United Kingdom', false);
-			// removing values by code doesn't trigger events.
-			$('#clicktoremoveuk').click(function() {
-				filtersJs.removeValue(removeuk, 'United Kingdom');
-			});
+			/*
+			* Example.
+			* 
+			*/
+		   var a = "{Hello|Hi there|Hi|Hello there}! !fname. " + 
+				   "{Thanks|Thank you} for {accepting my invitation|adding me to your contacts|adding me to your friends|adding me to your connections}.<br/>" +
+				   "<br/>" +
+				   "Our {brand new|exclusive|unique|new}  {service|product} {was|is} {crafted|created|designed} to " +
+				   "<!benefit1!write the most attractive benefit of your service!>; " +
+				   "and {I want|I would like|I'd like} to {send you|invite you for|share} a {free|absolutely free|absolute free} <!lead magnet!write a lead magnet here!>.<br/>" +
+				   "<br/>" +
+				   "{Do you want to try it out?|Do you want to test it?|Would you like to test it out?}";
+		   
+		   var b = "{Thank you|Thanks} for accepting , !fname {Happy|Glad} to {have|count with} you {into|in} my {connections|friends|list of connections|list of contacts}.<br/>" +
+				   "<br/>" +
+				   "{Our|My} {company|business|team} is {working on|creating|developing|crafting|releasing|putting the last touches to} {this|a|a new} {service|product} to" +
+				   "<!benefit1!write the most attractive benefit of your service!> , and {I’d like|I would like|I want} you to {test|try} {it|it out}.<br/>" +
+				   "<br/>" +
+				   "{Kindly|Please} {advice me|let me know} if you{'d like| would like| want} to {test|try} {our|this} {brand-new|new} {service|product} so we can " +
+				   "{schedule|set|book} a {meeting|call}.";
+		   
+		   var c = "{Hello|Hi} !fname.<br/>" +
+				   "<br/>" +
+				   "As {I wrote|said|I said|I said before|I wrote before|I said in my previous message|I wrote in my previous message|I said in other message|I wrote in other message}, " +
+				   "{I am going to|I'm going to|I will|I'll} {launch|start|release|offer} a new {service|program} to <!benefit1!write the most attractive benefit of your service!>.<br/>" +
+				   "<br/>" +
+				   "Can I {send you|share} {a private|a personal|an email} invitation to {a free|an absolutely free|a free of charge} {demo|presentation|call}?<br/>" +
+				   "<br/>" +
+				   "{What's|What is} your {best|primary|main|daily} {email|email address}?";
+		   
+		   var ctx = document.getElementById('myTemplate');
+		   
+		   templatesJs.draw(ctx, {
+			   index: 2,
+			   versions: [{
+				   title: 'Template #1', 
+				   code: a,
+				   values: {
+					   'benefit1': null,
+					   'lead magnet': null,
+				   },
+			   }, {
+				   title: 'Template #2', 
+				   code: b,
+				   values: {
+					   'benefit1': null,
+				   },
+			   }, {
+				   title: 'Template #3', 
+				   code: c,
+				   values: {
+					   'benefit1': null,
+				   },
+			   }],
+		   });
+	   
+		   $('#setFocus').click(function() {
+			   templatesJs.setFocus(ctx);
+		   });
+	   
+		   $('#getSpintax').click(function() {
+			   $('#result').text(
+				   templatesJs.getSpintax(ctx)
+			   );
+		   });
+	   
+		   $('#getFieldNames').click(function() {
+			   $('#result').text(
+				   templatesJs.getFieldNames(ctx).toString()
+			   );
+		   });
+	   
+		   $('#getFieldValue').click(function() {
+			   $('#result').text(
+				   templatesJs.getFieldValue(ctx, $('#fieldName').val())
+			   );
+		   });	   
 		});
 	</script>
 
