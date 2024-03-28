@@ -1,0 +1,1 @@
+Database migrations must be stored in this folder, following the [specifications for database updates](https://github.com/leandrosardi/my-ruby-deployer?tab=readme-ov-file#6-database-updates).
